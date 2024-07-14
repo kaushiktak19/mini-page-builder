@@ -11,14 +11,11 @@ function Canvas() {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      //console.log('Key pressed:', event.key);  // Log the key pressed
       if (selectedElement) {
         if (event.key === 'Enter') {
-          //console.log('Enter key pressed');
           setTempElement(selectedElement);
           setModalOpen(true);
         } else if (event.key === 'Delete' || event.key === 'Backspace') {
-          //console.log('Delete key pressed');
           handleDeleteElement(selectedElement.id);
         }
       }
@@ -36,9 +33,15 @@ function Canvas() {
     const elementType = event.dataTransfer.getData('text/plain');
     const { clientX, clientY } = event;
 
+    const canvasRect = event.currentTarget.getBoundingClientRect();
+
     if (draggingElement) {
+      const elementRect = document.getElementById(draggingElement.id).getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - canvasRect.left, 0), canvasRect.width - elementRect.width);
+      const y = Math.min(Math.max(clientY - canvasRect.top, 0), canvasRect.height - elementRect.height);
+
       const updatedElements = elements.map(el =>
-        el.id === draggingElement.id ? { ...el, x: clientX, y: clientY, isDragging: false } : el
+        el.id === draggingElement.id ? { ...el, x, y, isDragging: false } : el
       );
       setElements(updatedElements);
       setDraggingElement(null);
@@ -46,8 +49,8 @@ function Canvas() {
       const newElement = {
         id: Date.now(),
         type: elementType,
-        x: clientX,
-        y: clientY,
+        x: clientX - canvasRect.left,
+        y: clientY - canvasRect.top,
         text: 'Label',
         fontSize: '16px',
         fontWeight: 'normal'
@@ -62,8 +65,13 @@ function Canvas() {
     event.preventDefault();
     if (draggingElement) {
       const { clientX, clientY } = event;
+      const canvasRect = event.currentTarget.getBoundingClientRect();
+      const elementRect = document.getElementById(draggingElement.id).getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - canvasRect.left, 0), canvasRect.width - elementRect.width);
+      const y = Math.min(Math.max(clientY - canvasRect.top, 0), canvasRect.height - elementRect.height);
+
       const updatedElements = elements.map(el =>
-        el.id === draggingElement.id ? { ...el, x: clientX, y: clientY, isDragging: true } : el
+        el.id === draggingElement.id ? { ...el, x, y, isDragging: true } : el
       );
       setElements(updatedElements);
     }
@@ -85,21 +93,17 @@ function Canvas() {
   };
 
   const handleDeleteElement = (id) => {
-    //console.log('Deleting element with id:', id);  // Log the id being deleted
     const updatedElements = elements.filter(el => el.id !== id);
-    //console.log('Updated elements:', updatedElements);  // Log the updated elements
     setElements(updatedElements);
     setSelectedElement(null);
   };
 
   const handleElementClick = (el, event) => {
     event.stopPropagation();
-    //console.log('Element clicked:', el);  // Log the clicked element
     setSelectedElement(el);
   };
 
   const handleCanvasClick = () => {
-    //console.log('Canvas clicked, deselecting element');
     setSelectedElement(null);
   };
 
@@ -111,8 +115,13 @@ function Canvas() {
   const handleDragEnd = (event) => {
     if (draggingElement) {
       const { clientX, clientY } = event;
+      const canvasRect = document.querySelector('.canvas').getBoundingClientRect();
+      const elementRect = document.getElementById(draggingElement.id).getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - canvasRect.left, 0), canvasRect.width - elementRect.width);
+      const y = Math.min(Math.max(clientY - canvasRect.top, 0), canvasRect.height - elementRect.height);
+
       const updatedElements = elements.map(el =>
-        el.id === draggingElement.id ? { ...el, x: clientX, y: clientY, isDragging: false } : el
+        el.id === draggingElement.id ? { ...el, x, y, isDragging: false } : el
       );
       setElements(updatedElements);
       setDraggingElement(null);
@@ -129,6 +138,7 @@ function Canvas() {
     >
       {elements.map((el, index) => (
         <div
+          id={el.id}
           key={index}
           className={`element ${selectedElement?.id === el.id || draggingElement?.id === el.id ? 'selected' : ''}`}
           style={{ 
