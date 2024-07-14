@@ -36,6 +36,20 @@ function Modal({ element, onSaveChanges, onClose }) {
     onSaveChanges(config);
   };
 
+  const handleFontSizeChange = (e) => {
+    let value = parseInt(e.target.value);
+    if (value < 1) value = 1;
+    if (value > 200) value = 200;
+    setFontSize(value + 'px');
+  };
+
+  const handleFontWeightChange = (e) => {
+    let value = parseInt(e.target.value);
+    if (value < 100) value = 100;
+    if (value > 900) value = 900;
+    setFontWeight(value);
+  };
+
   return (
     <div className="modal-container">
       <div className="modal">
@@ -84,24 +98,29 @@ function Modal({ element, onSaveChanges, onClose }) {
         <div className="input-container">
           <label htmlFor="fontSizeInput">Font Size:</label>
           <input
-            type="text"
+            type="number"
             id="fontSizeInput"
-            value={fontSize}
-            onChange={(e) => setFontSize(e.target.value)}
+            value={fontSize ? parseInt(fontSize) : ''}
+            onChange={handleFontSizeChange}
             placeholder="Enter font size"
             className="large-input"
+            min="1"
+            max="200"
           />
         </div>
 
         <div className="input-container">
           <label htmlFor="fontWeightInput">Font Weight:</label>
           <input
-            type="text"
+            type="number"
             id="fontWeightInput"
-            value={fontWeight}
-            onChange={(e) => setFontWeight(e.target.value)}
+            value={fontWeight ? fontWeight : ''}
+            onChange={handleFontWeightChange}
             placeholder="Enter font weight"
             className="large-input"
+            min="100"
+            max="900"
+            step="100"
           />
         </div>
 

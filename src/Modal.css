@@ -13,12 +13,16 @@
   
   .modal {
     position: relative;
-    width: 29%;
-    height: 73%;
+    height: 485px;
+    width: 50%; /* Adjust width as desired */
+    max-width: 325px; /* Maximum width to ensure it's not too wide */
     background: #ffffff;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    top: 35%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust to center perfectly */
+    margin: 0 auto; /* Center horizontally */
   }
   
   .edit-label {
@@ -32,16 +36,18 @@
   .close-icon {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 18px;
     cursor: pointer;
+    font-size: 28px;
   }
   
   .line {
     width: 100%;
     height: 1px;
-    background-color: #000000;
     opacity: 0.07;
     margin: 20px 0;
+    color: #000000;
+    border: 1px solid #000000;
   }
   
   .input-container {
@@ -59,13 +65,15 @@
   }
   
   .input-container input {
-    width: 100%;
-    padding: 8px;
+    width: 90%;
+    height: 3px;
+    padding: 14px;
     border: 1px solid #d9d9d9;
     border-radius: 2px;
     font-family: 'Objektiv Mk3', sans-serif;
     font-size: 16px;
     color: #595959;
+    border-radius: 2px;
   }
   
   .save-button {
