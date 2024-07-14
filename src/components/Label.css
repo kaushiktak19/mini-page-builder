@@ -1,0 +1,41 @@
+.blocks {
+    width: 278px;
+    height: 49px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    margin-bottom: 10px;
+    font-weight: 300;
+    position: relative;
+    cursor: grab; /* Default cursor */
+  }
+  
+  .blocks:active,
+  .blocks.dragging {
+    cursor: grabbing; /* Change cursor on active drag */
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+  
+  .grip {
+    width: 11px;
+    height: 18px;
+    top: 15px;
+    left: 15px;
+    padding: 5px;
+    padding-left: 10px;
+  }
+  
+  .label {
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
