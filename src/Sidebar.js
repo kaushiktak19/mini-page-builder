@@ -11,10 +11,10 @@ function Sidebar() {
     <div className='sidebar'>
       <div className='content'>
         <div className='block'>BLOCKS</div>
-        <Label />
-        <Input />
-        <Button />
-      </div>
+            <Label />
+            <Input />
+            <Button />
+        </div>
     </div>
   );
 }

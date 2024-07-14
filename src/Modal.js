@@ -31,7 +31,6 @@ function Modal({ element, onSaveChanges, onClose }) {
       y: parseInt(yCoordinate) || 0,
       fontSize: fontSize || '16px',
       fontWeight: fontWeight || 'normal'
-      // Add other properties as needed
     };
 
     onSaveChanges(config);
@@ -106,9 +105,11 @@ function Modal({ element, onSaveChanges, onClose }) {
           />
         </div>
 
-        <button className="save-button" onClick={handleSave}>
-          Save Changes
-        </button>
+        <div className="button-container">
+          <button className="save-button" onClick={handleSave}>
+            Save Changes
+          </button>
+        </div>
       </div>
     </div>
   );

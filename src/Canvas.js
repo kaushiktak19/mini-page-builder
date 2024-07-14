@@ -33,7 +33,6 @@ function Canvas() {
     const elementType = event.dataTransfer.getData('text/plain');
     const { clientX, clientY } = event;
 
-    // If an element is being moved, update its position
     if (draggingElement) {
       const updatedElements = elements.map(el =>
         el.id === draggingElement.id ? { ...el, x: clientX, y: clientY, isDragging: false } : el
@@ -41,7 +40,6 @@ function Canvas() {
       setElements(updatedElements);
       setDraggingElement(null); // Clear the dragging element
     } else {
-      // New element is being dropped
       const newElement = {
         id: Date.now(), // Unique ID for new elements
         type: elementType,
@@ -69,12 +67,16 @@ function Canvas() {
   };
 
   const handleSaveChanges = (config) => {
-    const updatedElement = {
-      ...tempElement,
-      ...config
-    };
+    const updatedElements = elements.map(el =>
+      el.id === tempElement.id ? { ...el, ...config } : el
+    );
 
-    setElements([...elements, updatedElement]); // Add or update element
+    if (!elements.some(el => el.id === tempElement.id)) {
+      setElements([...elements, { ...tempElement, ...config }]);
+    } else {
+      setElements(updatedElements);
+    }
+
     setModalOpen(false); // Close modal
     setTempElement(null); // Clear temporary element
   };
@@ -118,7 +120,6 @@ function Canvas() {
       onClick={handleCanvasClick}
       tabIndex="0"
     >
-      {/* Render dropped elements */}
       {elements.map((el, index) => (
         <div
           key={index}
@@ -128,7 +129,9 @@ function Canvas() {
             top: el.y, 
             position: 'absolute',
             cursor: 'grab',
-            opacity: el.isDragging ? 0 : 1 
+            opacity: el.isDragging ? 0 : 1,
+            fontSize: el.fontSize,
+            fontWeight: el.fontWeight
           }}
           draggable={true}
           onClick={(event) => handleElementClick(el, event)}
@@ -139,7 +142,6 @@ function Canvas() {
         </div>
       ))}
 
-      {/* Modal for configuration */}
       {modalOpen && (
         <Modal
           element={tempElement}
