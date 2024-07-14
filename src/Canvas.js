@@ -3,11 +3,18 @@ import Modal from './Modal';
 import './Canvas.css';
 
 function Canvas() {
-  const [elements, setElements] = useState([]);
+  const [elements, setElements] = useState(() => {
+    const savedElements = localStorage.getItem('elements');
+    return savedElements ? JSON.parse(savedElements) : [];
+  });
   const [modalOpen, setModalOpen] = useState(false);
   const [tempElement, setTempElement] = useState(null);
   const [selectedElement, setSelectedElement] = useState(null);
   const [draggingElement, setDraggingElement] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem('elements', JSON.stringify(elements));
+  }, [elements]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
