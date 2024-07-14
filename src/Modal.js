@@ -24,6 +24,23 @@ function Modal({ element, onSaveChanges, onClose }) {
     }
   }, [element]);
 
+  // Determine the title based on element type
+  let modalTitle = '';
+  switch (element?.type) {
+    case 'label':
+      modalTitle = 'Edit Label';
+      break;
+    case 'input':
+      modalTitle = 'Edit Input';
+      break;
+    case 'button':
+      modalTitle = 'Edit Button';
+      break;
+    default:
+      modalTitle = 'Edit Element';
+      break;
+  }
+
   const handleSave = () => {
     const config = {
       text: text || 'Label',
@@ -53,7 +70,7 @@ function Modal({ element, onSaveChanges, onClose }) {
   return (
     <div className="modal-container">
       <div className="modal">
-        <div className="edit-label">Edit Label</div>
+        <div className="edit-label">{modalTitle}</div>
         <span className="close-icon" onClick={onClose}>
           &times;
         </span>

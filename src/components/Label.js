@@ -1,16 +1,16 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
-import './Label.css'; // New CSS file for specific label styles
+//import './Label.css'; // New CSS file for specific label styles
 
 function Label() {
   const handleDragStart = (event) => {
-    event.dataTransfer.setData('text/plain', 'Label'); // Set drag data
-    event.target.style.cursor = 'grab'; // Change cursor to grabbing
+    event.dataTransfer.setData('text/plain', 'label');
+    event.target.style.cursor = 'grab';
   };
 
   const handleDragEnd = (event) => {
-    event.target.style.cursor = 'grab'; // Restore cursor to grab
+    event.target.style.cursor = 'grab';
   };
 
   return (
