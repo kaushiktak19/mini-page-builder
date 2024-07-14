@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
-import './Canvas.css'; // CSS file for specific canvas styles
+import './Canvas.css';
 
 function Canvas() {
   const [elements, setElements] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [tempElement, setTempElement] = useState(null); // Temporarily store the element being configured
-  const [selectedElement, setSelectedElement] = useState(null); // Track the selected element
-  const [draggingElement, setDraggingElement] = useState(null); // Track the element being dragged
+  const [tempElement, setTempElement] = useState(null);
+  const [selectedElement, setSelectedElement] = useState(null);
+  const [draggingElement, setDraggingElement] = useState(null);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
+      //console.log('Key pressed:', event.key);  // Log the key pressed
       if (selectedElement) {
         if (event.key === 'Enter') {
+          //console.log('Enter key pressed');
           setTempElement(selectedElement);
           setModalOpen(true);
-        } else if (event.key === 'Delete') {
+        } else if (event.key === 'Delete' || event.key === 'Backspace') {
+          //console.log('Delete key pressed');
           handleDeleteElement(selectedElement.id);
         }
       }
@@ -38,20 +41,20 @@ function Canvas() {
         el.id === draggingElement.id ? { ...el, x: clientX, y: clientY, isDragging: false } : el
       );
       setElements(updatedElements);
-      setDraggingElement(null); // Clear the dragging element
+      setDraggingElement(null);
     } else {
       const newElement = {
-        id: Date.now(), // Unique ID for new elements
+        id: Date.now(),
         type: elementType,
         x: clientX,
         y: clientY,
-        text: 'Label', // Default text
-        fontSize: '16px', // Default font size
-        fontWeight: 'normal' // Default font weight
+        text: 'Label',
+        fontSize: '16px',
+        fontWeight: 'normal'
       };
 
-      setTempElement(newElement); // Store temporarily
-      setModalOpen(true); // Open modal for configuration
+      setTempElement(newElement);
+      setModalOpen(true);
     }
   };
 
@@ -77,28 +80,32 @@ function Canvas() {
       setElements(updatedElements);
     }
 
-    setModalOpen(false); // Close modal
-    setTempElement(null); // Clear temporary element
+    setModalOpen(false);
+    setTempElement(null);
   };
 
   const handleDeleteElement = (id) => {
+    //console.log('Deleting element with id:', id);  // Log the id being deleted
     const updatedElements = elements.filter(el => el.id !== id);
+    //console.log('Updated elements:', updatedElements);  // Log the updated elements
     setElements(updatedElements);
-    setSelectedElement(null); // Clear the selected element
+    setSelectedElement(null);
   };
 
   const handleElementClick = (el, event) => {
-    event.stopPropagation(); // Prevent triggering canvas click
-    setSelectedElement(el); // Set the element as selected
+    event.stopPropagation();
+    //console.log('Element clicked:', el);  // Log the clicked element
+    setSelectedElement(el);
   };
 
   const handleCanvasClick = () => {
-    setSelectedElement(null); // Clear selection when clicking on canvas
+    //console.log('Canvas clicked, deselecting element');
+    setSelectedElement(null);
   };
 
   const handleDragStart = (el, event) => {
     event.dataTransfer.setData('text/plain', 'Label');
-    setDraggingElement(el); // Track the element being dragged
+    setDraggingElement(el);
   };
 
   const handleDragEnd = (event) => {
@@ -108,7 +115,7 @@ function Canvas() {
         el.id === draggingElement.id ? { ...el, x: clientX, y: clientY, isDragging: false } : el
       );
       setElements(updatedElements);
-      setDraggingElement(null); // Clear the dragging element after dragging
+      setDraggingElement(null);
     }
   };
 
