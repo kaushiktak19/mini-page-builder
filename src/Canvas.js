@@ -57,7 +57,7 @@ function Canvas() {
         type: elementType,
         x: clientX - canvasRect.left,
         y: clientY - canvasRect.top,
-        text: elementType === 'label' ? 'Label' : elementType === 'input' ? 'Input' : 'Button',
+        text: elementType === 'label' ? 'Label' : elementType === 'input' ? 'Input' : 'Button', // default input to be empty
         fontSize: '16px',
         fontWeight: 'normal'
       };
@@ -134,6 +134,13 @@ function Canvas() {
     }
   };
 
+  const handleInputChange = (id, value) => {
+    const updatedElements = elements.map(el =>
+      el.id === id ? { ...el, text: value } : el
+    );
+    setElements(updatedElements);
+  };
+
   return (
     <div
       className='canvas'
@@ -164,7 +171,8 @@ function Canvas() {
           elementContent = (
             <input
               type="text"
-              defaultValue={el.text}
+              value={el.text} // changed from defaultValue to value
+              onChange={(e) => handleInputChange(el.id, e.target.value)} // added onChange handler
               style={{
                 fontSize: el.fontSize,
                 fontWeight: el.fontWeight,
