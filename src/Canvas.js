@@ -145,7 +145,21 @@ function Canvas() {
       {elements.map((el, index) => {
         let elementContent;
         if (el.type === 'label') {
-          elementContent = el.text;
+          elementContent = (
+            <span
+              style={{
+                fontSize: el.fontSize,
+                fontWeight: el.fontWeight,
+              }}
+              className="label-element"
+              onClick={(e) => handleElementClick(el, e)}
+              onDragStart={(event) => handleDragStart(el, event)}
+              onDragEnd={handleDragEnd}
+              draggable={true}
+            >
+              {el.text}
+            </span>
+          );
         } else if (el.type === 'input') {
           elementContent = (
             <input
