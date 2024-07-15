@@ -49,7 +49,7 @@ function Canvas({ elements, setElements }) {
         type: elementType,
         x: clientX - canvasRect.left,
         y: clientY - canvasRect.top,
-        text: elementType === 'label' ? 'Label' : elementType === 'input' ? 'Input' : 'Button', // default input to be empty
+        text: elementType === 'label' ? 'This is Label' : elementType === 'input' ? ' ' : 'Button', 
         fontSize: '16px',
         fontWeight: 'normal'
       };
@@ -163,8 +163,8 @@ function Canvas({ elements, setElements }) {
           elementContent = (
             <input
               type="text"
-              value={el.text} // changed from defaultValue to value
-              onChange={(e) => handleInputChange(el.id, e.target.value)} // added onChange handler
+              value={el.text} 
+              onChange={(e) => handleInputChange(el.id, e.target.value)} 
               style={{
                 fontSize: el.fontSize,
                 fontWeight: el.fontWeight,

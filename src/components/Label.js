@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
-//import './Label.css'; // New CSS file for specific label styles
+import './Label.css'; 
 
 function Label() {
   const handleDragStart = (event) => {

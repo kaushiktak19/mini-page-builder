@@ -14,15 +14,15 @@
   .modal {
     position: relative;
     height: 485px;
-    width: 50%; /* Adjust width as desired */
-    max-width: 325px; /* Maximum width to ensure it's not too wide */
+    width: 50%; 
+    max-width: 325px; 
     background: #ffffff;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    top: 35%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust to center perfectly */
-    margin: 0 auto; /* Center horizontally */
+    top: 35%; 
+    transform: translateY(-50%); 
+    margin: 0 auto; 
   }
   
   .edit-label {

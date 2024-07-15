@@ -8,12 +8,12 @@
     margin-bottom: 10px;
     font-weight: 300;
     position: relative;
-    cursor: grab; /* Default cursor */
+    cursor: grab; 
   }
   
   .blocks:active,
   .blocks.dragging {
-    cursor: grabbing; /* Change cursor on active drag */
+    cursor: grabbing; 
   }
   
   .icon {

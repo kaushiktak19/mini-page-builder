@@ -38,6 +38,7 @@
   font-size: 16px;
   color: #595959;
   user-select: none;
+  white-space: nowrap;
 }
 
 .input-element {

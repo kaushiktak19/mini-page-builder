@@ -24,7 +24,7 @@ function Modal({ element, onSaveChanges, onClose }) {
     }
   }, [element]);
 
-  // Determine the title based on element type
+
   let modalTitle = '';
   switch (element?.type) {
     case 'label':
@@ -44,7 +44,7 @@ function Modal({ element, onSaveChanges, onClose }) {
   const handleSave = () => {
     const config = {
       text: text || 'Label',
-      x: parseInt(xCoordinate) || 0, // Ensure coordinates are integers
+      x: parseInt(xCoordinate) || 0, 
       y: parseInt(yCoordinate) || 0,
       fontSize: fontSize || '16px',
       fontWeight: fontWeight || 'normal'
